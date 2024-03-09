@@ -1,6 +1,7 @@
 package com.pratik.config;
 
 import jakarta.servlet.http.HttpServletRequest;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -18,9 +19,11 @@ import java.util.Collections;
 
 @Configuration
 @EnableWebSecurity
+@Slf4j
 public class AppConfig {
+    @Bean
     SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception{
-
+        log.info("inside appconfig");
         http.sessionManagement(management -> management.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(authorize -> authorize
                         .requestMatchers("/api/admin/**").hasAnyRole("RESTAURANT_OWNERS", "ADMIN")
@@ -30,7 +33,7 @@ public class AppConfig {
                 .csrf(csrf -> csrf.disable())
                 .cors(cors -> cors.configurationSource(corsConfigurationSource()));
 
-        return null;
+        return http.build();
     }
 
     private CorsConfigurationSource corsConfigurationSource() {

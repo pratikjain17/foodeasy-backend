@@ -1,6 +1,7 @@
 package com.pratik.config;
 
 import com.pratik.constants.JwtConstant;
+import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.security.Keys;
 import org.springframework.security.core.Authentication;
@@ -25,6 +26,13 @@ public class JwtProvider {
                 .signWith(key)
                 .compact();
         return jwt;
+    }
+
+    public String getEmailFromJwt(String jwt){
+        jwt = jwt.substring(7);
+        Claims claims = Jwts.parser().setSigningKey(key).build().parseClaimsJws(jwt).getBody();
+
+        return String.valueOf(claims.get("email"));
     }
 
     private String populateAuthorities(Collection<? extends GrantedAuthority> authorities) {
