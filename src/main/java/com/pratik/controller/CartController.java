@@ -2,9 +2,11 @@ package com.pratik.controller;
 
 import com.pratik.model.Cart;
 import com.pratik.model.CartItem;
+import com.pratik.model.User;
 import com.pratik.request.AddCartItemRequest;
 import com.pratik.request.UpdateCartItemRequest;
 import com.pratik.service.CartService;
+import com.pratik.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,6 +17,8 @@ import org.springframework.web.bind.annotation.*;
 public class CartController {
     @Autowired
     private CartService cartService;
+    @Autowired
+    private UserService userService;
 
     @PutMapping("/cart/add")
     public ResponseEntity<CartItem> addItemToCart(@RequestBody AddCartItemRequest request,
@@ -40,13 +44,15 @@ public class CartController {
 
     @DeleteMapping("/cart/clear")
     public ResponseEntity<Cart> removeCartItem(@RequestHeader("Authorization") String jwt) throws Exception {
-        Cart cart = cartService.clearCart(jwt);
+        User user = userService.findUserByJwtToken(jwt);
+        Cart cart = cartService.clearCart(user.getId());
         return new ResponseEntity<>(cart, HttpStatus.OK);
     }
 
     @DeleteMapping("/cart")
     public ResponseEntity<Cart> findUserCart(@RequestHeader("Authorization") String jwt) throws Exception {
-        Cart cart = cartService.findCartByUserId(jwt);
+        User user = userService.findUserByJwtToken(jwt);
+        Cart cart = cartService.findCartByUserId(user.getId());
         return new ResponseEntity<>(cart, HttpStatus.OK);
     }
 }

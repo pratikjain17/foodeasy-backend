@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/admin/restaurants")
-public class RestaurantAdminController {
+public class AdminRestaurantController {
 
     @Autowired
     private RestaurantService restaurantService;

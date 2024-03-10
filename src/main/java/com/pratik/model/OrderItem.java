@@ -12,17 +12,12 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 public class OrderItem {
-
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-
     @ManyToOne
     private Food food;
-
     private int quanity;
-
     private long totalPrice;
-
     private List<String> ingredients;
 }

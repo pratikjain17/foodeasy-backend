@@ -14,15 +14,11 @@ public class IngredientsItems {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-
     private String name;
-
     @ManyToOne
     private IngredientsCategory category;
-
     @JsonIgnore
     @ManyToOne
     private Restaurant restaurant;
-
     private boolean inStock = true;
 }

@@ -16,12 +16,9 @@ public class Cart {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-
     @OneToOne
     private User customer;
-
     private Long total;
-
     @OneToMany(mappedBy = "cart", cascade = CascadeType.ALL)
     private List<CartItem> cartItemList = new ArrayList<>();
 }
