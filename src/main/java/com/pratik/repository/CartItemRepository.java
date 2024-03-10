@@ -1,11 +1,9 @@
 package com.pratik.repository;
 
-import com.pratik.model.Cart;
+import com.pratik.model.CartItem;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface CartRepository extends JpaRepository<Cart, Long> {
-
-    public Cart findByCustomerId(Long userId);
+public interface CartItemRepository extends JpaRepository<CartItem, Long> {
 }
